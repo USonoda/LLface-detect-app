@@ -8,8 +8,8 @@ from keras import optimizers
 import cv2
 import matplotlib.pyplot as plt
 from PIL import Image
-import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
+# import ssl
+# ssl._create_default_https_context = ssl._create_unverified_context
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
