@@ -2,10 +2,8 @@
 
 from flask import Flask, render_template, request, redirect, url_for
 from werkzeug import secure_filename
-from PIL import Image
 import os
 import detect
-import cv2
 
 
 # 自身の名称を app という名前でインスタンス化する
@@ -15,7 +13,7 @@ app.config['DEBUG'] = True
 UPLOAD_FOLDER = './static/images/tmp'
 
 
-# ルーティング。/にアクセス時
+# ルーティング /にアクセス時
 @app.route('/')
 def index():
     return render_template('index.html')

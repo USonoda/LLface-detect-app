@@ -1,12 +1,11 @@
-import os, sys
+import os
 import numpy as np
 from keras.applications.vgg16 import VGG16
 from keras.models import Sequential, Model
-from keras.layers import Input, Activation, Dropout, Flatten, Dense
+from keras.layers import Input, Dropout, Flatten, Dense
 from keras.preprocessing import image
 from keras import optimizers
 import cv2
-import matplotlib.pyplot as plt
 from PIL import Image
 # import ssl
 # ssl._create_default_https_context = ssl._create_unverified_context
