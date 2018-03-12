@@ -1,17 +1,13 @@
-# Inherit from Heroku's python stack
-FROM heroku/python
+FROM heroku/heroku:16
 
-# Install OpenCV
-RUN mkdir -p /app/.heroku/opencv /tmp/opencv
-ADD Install-OpenCV /tmp/opencv
-WORKDIR /tmp/opencv/Ubuntu
-RUN echo 'deb http://archive.ubuntu.com/ubuntu trusty multiverse' >> /etc/apt/sources.list && apt-get update
-RUN ./opencv_latest.sh
+ADD . /opt
+WORKDIR /opt
 
-# Python environment
-RUN echo 'export PYTHONPATH=${PYTHONPATH:-/app/.heroku/opencv/lib/python2.7/site-packages}' > /app/.profile.d/opencv.sh
+RUN apt-get update && apt-get install -y python3-pip libsm6
 
-ONBUILD WORKDIR /app/user
-ONBUILD ADD requirements.txt /app/user/
-ONBUILD RUN /app/.heroku/python/bin/pip install -r requirements.txt
-ONBUILD ADD . /app/user/
+RUN pip3 install opencv-python flask tensorflow keras pillow
+
+RUN useradd -m myuser
+USER myuser
+
+CMD python3 app.py $PORT
