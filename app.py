@@ -4,6 +4,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from werkzeug import secure_filename
 import os
 import detect
+import io
+from PIL import Image
 
 
 # 自身の名称を app という名前でインスタンス化する
@@ -28,15 +30,18 @@ def post():
             if len(os.listdir(UPLOAD_FOLDER)) > 6:
                 for i in range(4):
                     os.remove(os.path.join(UPLOAD_FOLDER, os.listdir(UPLOAD_FOLDER)[i]))
-            # アップロードされたファイルを保存　←　省略可能？？
+
             f = request.files['file']
             img_path = os.path.join(UPLOAD_FOLDER, secure_filename(f.filename))
-            f.save(img_path)
+            # f.save(img_path)
+            img = Image.open(f)
+            # img_bin = io.BytesIO(img_path)
 
-            f, face_num = detect.detect_face(img_path)
+            f, face_num = detect.detect_face(img)
             f.save(img_path)
+            # img_bin = io.BytesIO(img_path)
             # result = [test1.evaluation(img_path), img_path, face_num]  # face_num＞1の時の表示処理をしたい（表を消す）
-            # test1.evaluationは上位3人の結果を表示したいだけの目的で入れている
+            # test1.evaluationは上位3人の結果を表示したいだけの目的で作っている
 
             result = ['', img_path, face_num]  # 最初の要素は（後々の）上位3人の表示用
         else:
