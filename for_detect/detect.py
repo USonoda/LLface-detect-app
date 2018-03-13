@@ -60,7 +60,7 @@ def model_load(result_dir):
 
 def evaluation(img_path):  # 上位3人の結果を表示する用　→　顔の数が1つか0だった時用
     # モデルのロード
-    model = model_load('results_all')
+    model = model_load('./for_detect/results_all')
 
     filename = img_path
     img = image.load_img(filename, target_size=(img_width, img_height))
@@ -88,7 +88,7 @@ def eval_array(face_num, x, top=3):  # xは画像の配列(RGB)　　画像フ�
     #     result = [(classes[i], pred[i]) for i in top_indices]
     # else:
 
-    model = model_load('results_150pt')
+    model = model_load('./for_detect/results_150pt')
     x = x / 255
     pred = model.predict(x)[0]
 
@@ -106,7 +106,7 @@ def detect_face(image):  # 引数はPIL Image、出力は結果書き込んだPI
     image = cv2.merge([b, g, r])
 
     image_gs = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cascade = cv2.CascadeClassifier("lbpcascade_animeface.xml")
+    cascade = cv2.CascadeClassifier("./for_detect/lbpcascade_animeface.xml")
     # 顔認識結果の座標情報をface_listに入れる
     face_list = cascade.detectMultiScale(image_gs,
                                          scaleFactor=1.1,
@@ -162,7 +162,7 @@ def detect_face(image):  # 引数はPIL Image、出力は結果書き込んだPI
 
 if __name__ == '__main__':
     # このディレクトリにテストしたい画像を格納しておく
-    test_data_dir = '../fine_tuning/dataset/test'
+    test_data_dir = '../../fine_tuning/dataset/test'
 
     # テスト用画像取得
     test_imagelist = os.listdir(test_data_dir)
