@@ -6,13 +6,16 @@ import os
 import detect
 import io
 from PIL import Image
+import tmp
 
 
-# 自身の名称を app という名前でインスタンス化する
 app = Flask(__name__)
 app.config['DEBUG'] = True
+
 # 投稿画像の保存先
-UPLOAD_FOLDER = './static/images/tmp'
+UPLOAD_FOLDER = 'tmp'
+
+app.register_blueprint(tmp.app)
 
 
 # ルーティング /にアクセス時
