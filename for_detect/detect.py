@@ -97,7 +97,7 @@ def eval_array(face_num, x, top=3):  # xは画像の配列(RGB)　　画像フ�
     return result
 
 
-def detect_face(image):  # 引数はPILImage、出力は結果書き込んだ画像（PIL image）
+def detect_face(image):  # 引数はPIL Image、出力は結果書き込んだPIL image
     image = np.asarray(image)  # この時点でimageは配列(RGB)になる
 
     # 顔抽出
@@ -120,7 +120,6 @@ def detect_face(image):  # 引数はPILImage、出力は結果書き込んだ画
     # 顔が１つ以上検出された時
     if face_num > 0:
         for rect in face_list:  # rectは［座標、座標、幅、高さ］
-            # print(rect)
             x, y, width, height = rect
             face = image[rect[1]:rect[1] + rect[3], rect[0]:rect[0] + rect[2]]
             face = cv2.resize(face, (img_width, img_height))
