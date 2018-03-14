@@ -33,9 +33,9 @@ def post():
 
             f = request.files['file']
             img_path = os.path.join(UPLOAD_FOLDER, secure_filename(f.filename))
-            img = Image.open(f)
+            f.save(img_path)
 
-            f, face_num = detect.detect_face(img)
+            f, face_num = detect.detect_face(img_path)
             f.save(img_path)
 
             result = ['', img_path, face_num]  # 最初の要素は（後々の）上位3人の表示用

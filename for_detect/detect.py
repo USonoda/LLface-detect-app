@@ -98,12 +98,9 @@ def eval_array(face_num, x, top=3):  # xは画像の配列(RGB)　　画像フ�
 
 
 def detect_face(image):  # 引数はPIL Image、出力は結果書き込んだPIL image
-    image = np.asarray(image)  # この時点でimageは配列(RGB)になる
+    image = cv2.imread(image)  # この時点でimageは配列(GBR)になる
 
     # 顔抽出
-    # cv2とPILでRGB違うので顔認識前に変える
-    r, g, b = cv2.split(image)
-    image = cv2.merge([b, g, r])
 
     image_gs = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     cascade = cv2.CascadeClassifier("./for_detect/lbpcascade_animeface.xml")
